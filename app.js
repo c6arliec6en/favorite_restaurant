@@ -30,7 +30,7 @@ app.get('/search', (req, res) => {
     return res.category.includes(keyword) || res.name.toLowerCase().includes(keyword.toLowerCase())
   })
   console.log(keyword, restaurants)
-  res.render('index', { resList: restaurants })
+  res.render('index', { resList: restaurants, keyword: keyword })
 })
 
 app.listen(port, () => {
