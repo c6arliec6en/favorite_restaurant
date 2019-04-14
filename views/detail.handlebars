@@ -2,6 +2,15 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
+      <div class="row control-list">
+        <button type="button" onclick="location.href='/'" class="btn"><i class="far fa-hand-point-left">
+            上一頁</i></button>
+        <button type="button" onclick="location.href='/restaurant/{{{res.id}}}/edit'" class="btn"><i
+            class="far fa-edit"> 編輯</i></button>
+        <form action="/restaurant/{{{res.id}}}/delete" method="POST">
+          <button type="submit" class="btn"><i class="far fa-trash-alt"> 刪除</i></button>
+        </form>
+      </div>
 
       <p class="mb-1">
         <span class="text-secondary">
