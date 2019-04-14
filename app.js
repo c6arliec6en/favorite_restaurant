@@ -91,7 +91,6 @@ app.get('/restaurant/new', (req, res) => {
 })
 
 app.post('/new', (req, res) => {
-  // const restaurant = resData(req.body)
 
   const restaurant = resData({
     name: req.body.name,
