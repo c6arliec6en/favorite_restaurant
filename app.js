@@ -9,6 +9,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
 
+
 //express session
 app.use(session({
   secret: 'Hello World',
@@ -24,6 +25,7 @@ require('./config/passport')(passport)
 // 登入後可以取得使用者的資訊方便我們在 view 裡面直接使用
 app.use((req, res, next) => {
   res.locals.user = req.user
+  res.locals.isAuthenticated = req.isAuthenticated()
   next()
 })
 
@@ -57,7 +59,8 @@ db.once('open', () => {
 app.use('/', require('./routes/home'))
 app.use('/restaurants', require('./routes/restaurant'))
 app.use('/sort', require('./routes/sort'))
-app.use('/user', require('./routes/user'))
+app.use('/users', require('./routes/user'))
+
 
 
 app.listen(port, () => {
