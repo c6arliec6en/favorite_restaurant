@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const resData = require('../models/restaurant')
-const { authenticated } = require('../config/auth')
+const authenticated = require('../config/auth')
 
 router.get('/', authenticated, (req, res) => {
   resData.find((err, resAll) => {

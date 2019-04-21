@@ -19,9 +19,10 @@
           alt="我的餐廳清單">
         我的餐廳清單
       </a>
-
+      <p class="m-auto">Hi {{{user.name}}}</p>
       <div class="control-list">
         {{#if isAuthenticated}}
+
         <button type="button" onclick="location.href='/restaurants/new'" class="btn btn-success"><i
             class="fas fa-plus">新增餐廳</i></button>
         <button type="button" onclick="location.href='/users/logout'" class="btn btn-success">登出</button>
