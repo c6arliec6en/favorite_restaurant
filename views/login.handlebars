@@ -1,0 +1,23 @@
+<form action="/user/login" method="POST">
+  <div class="container mb-5">
+    <div class="row justify-content-center">
+      <div class="card card-body col-md-5 ">
+        <h1>Login</h1>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="text" name="email" id="email" value="{{{email}}}" placeholder="E-mail" class="form-control mb-3">
+
+          <label for="password">Password</label>
+          <input type="text" name="password" id="password" value="{{{password}}}" placeholder="Password"
+            class="form-control mb-3">
+        </div>
+
+        <button type="submit" class="btn btn-success mb-4">確認</button>
+
+        <p>
+          No account? <a href="/user/register">Register Now!</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</form>

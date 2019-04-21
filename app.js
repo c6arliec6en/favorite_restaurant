@@ -6,7 +6,26 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const resData = require('./models/restaurant')
 const methodOverride = require('method-override')
+const session = require('express-session')
+const passport = require('passport')
 
+//express session
+app.use(session({
+  secret: 'Hello World',
+})) //設定Secret金鑰
+
+//use Passport
+app.use(passport.initialize())
+app.use(passport.session()) // passport內建 Session method 抓到 express-session 設定的 Secret 
+
+//Load passport config
+require('./config/passport')(passport)
+
+// 登入後可以取得使用者的資訊方便我們在 view 裡面直接使用
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  next()
+})
 
 // set static
 app.use('/', express.static('public'))
@@ -38,6 +57,7 @@ db.once('open', () => {
 app.use('/', require('./routes/home'))
 app.use('/restaurants', require('./routes/restaurant'))
 app.use('/sort', require('./routes/sort'))
+app.use('/user', require('./routes/user'))
 
 
 app.listen(port, () => {
