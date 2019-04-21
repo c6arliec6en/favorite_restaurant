@@ -2,11 +2,11 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/search">
+      <form action="/restaurants/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-            value="{{keyword}}" aria-describedby="search-button">
+            value="{{{keyword}}}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -16,45 +16,64 @@
   </div>
 </div>
 
-<!-- restaurant list -->
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-10 col-12 mx-auto">
-      <div class="card-columns">
+<div class="row justify-content-center mt-5">
+  <div class="dropdown">
+    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      選擇排序
+    </button>
+    <div class="dropdown-menu justify-content-center " aria-labelledby="dropdownMenuButton">
 
-        {{#each resList}}
-
-        <div class="card mb-3">
-          <a href="/restaurants/{{this.id}}" class="text-secondary">
-            <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
-          </a>
-          <div class="card-body p-3">
-            <h6 class="card-title mb-1">{{this.name}}</h6>
-
-            <div class="restaurant-category mb-1">
-              <i class="fas fa-utensils pr-2"></i> {{this.category}}
-              <span class="badge badge-pill badge-danger font-weight-normal">
-                {{{this.rating}}}
-                <i class="fas fa-star fa-xs"></i>
-              </span>
-            </div>
-
-            <div class="row control-list">
-              <button type="button" onclick="location.href='/restaurants/{{{this.id}}}'" class="btn"><i
-                  class="fas fa-search"></i></button>
-              <button type="button" onclick="location.href='/restaurant/{{{this.id}}}/edit'" class="btn"><i
-                  class="far fa-edit"></i></button>
-              <form action="/restaurant/{{{this.id}}}/delete" method="POST">
-                <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
-              </form>
-            </div>
-
-          </div>
-        </div>
-
-
-        {{/each}}
-      </div>
+      <a class="dropdown-item" href="/sort/asc">名字A->Z</a>
+      <a class="dropdown-item" href="/sort/desc">名字Z->A</a>
+      <a class="dropdown-item" href="/sort/rating">評分高到低</a>
+      <a class="dropdown-item" href="/sort/category">餐廳類別</a>
     </div>
   </div>
 </div>
+
+
+<!-- restaurant list -->
+<div class="container mt-5">
+  <div class="row">
+    <div class=" mx-auto row justify-content-center ">
+
+
+      {{#each resList}}
+
+      <div class="card col-md-3 ml-1 mr-1 mb-3">
+        <a href="/restaurants/{{this.id}}" class="text-secondary">
+          <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
+        </a>
+        <div class="card-body p-3">
+          <h6 class="card-title mb-1">{{this.name}}</h6>
+
+          <div class="restaurant-category mb-1">
+            <i class="fas fa-utensils pr-2"></i> {{this.category}}
+            <span class="badge badge-pill badge-danger font-weight-normal">
+              {{{this.rating}}}
+              <i class="fas fa-star fa-xs"></i>
+            </span>
+          </div>
+
+          <div class="row control-list">
+            <button type="button" onclick="location.href='/restaurants/{{{this.id}}}'" class="btn"><i
+                class="fas fa-search"></i></button>
+            <button type="button" onclick="location.href='/restaurant/{{{this.id}}}/edit'" class="btn"><i
+                class="far fa-edit"></i></button>
+            <form action="/restaurants/{{{this.id}}}/delete?_method=DELETE" method="POST">
+              <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+
+      {{/each}}
+
+    </div>
+  </div>
+</div>
+
+<script src="/javascripts/main.js"></script>

@@ -5,9 +5,9 @@
       <div class="row control-list">
         <button type="button" onclick="location.href='/'" class="btn"><i class="far fa-hand-point-left">
             上一頁</i></button>
-        <button type="button" onclick="location.href='/restaurant/{{{res.id}}}/edit'" class="btn"><i
+        <button type="button" onclick="location.href='/restaurants/{{{res.id}}}/edit'" class="btn"><i
             class="far fa-edit"> 編輯</i></button>
-        <form action="/restaurant/{{{res.id}}}/delete" method="POST">
+        <form action="/restaurants/{{{res.id}}}/delete?_method=DELETE" method="POST">
           <button type="submit" class="btn"><i class="far fa-trash-alt"> 刪除</i></button>
         </form>
       </div>
