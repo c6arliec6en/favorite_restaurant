@@ -1,15 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const resData = require('../models/restaurant')
+const authenticated = require('../config/auth')
 
 
 //進入新增頁面
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   res.render('new')
   console.log(req.user)
 })
 
-router.post('/new', (req, res) => {
+router.post('/new', authenticated, (req, res) => {
 
   const restaurant = resData({
     name: req.body.name,
@@ -28,7 +29,7 @@ router.post('/new', (req, res) => {
 })
 
 
-router.get('/search', (req, res) => {
+router.get('/search', authenticated, (req, res) => {
   const keyword = req.query.keyword
   console.log(keyword)
   resData.find((err, resAll) => {
@@ -41,7 +42,7 @@ router.get('/search', (req, res) => {
 })
 
 //詳細頁面
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticated, (req, res) => {
   const restaurantId = req.params.id
   resData.findById(restaurantId, (err, restaurant) => {
     if (err) return console.log('get detail err')
@@ -50,7 +51,7 @@ router.get('/:id', (req, res) => {
 })
 
 //進入編輯頁面
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', authenticated, (req, res) => {
   resData.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log('edit err')
     res.render('edit', { res: restaurant })
@@ -58,7 +59,7 @@ router.get('/:id/edit', (req, res) => {
 })
 
 //送出編輯內容
-router.put('/edit/:id', (req, res) => {
+router.put('/edit/:id', authenticated, (req, res) => {
   resData.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log('edit err')
 
@@ -76,7 +77,7 @@ router.put('/edit/:id', (req, res) => {
 })
 
 //觸發刪除
-router.delete('/:id/delete', (req, res) => {
+router.delete('/:id/delete', authenticated, (req, res) => {
   resData.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log('delete err')
     restaurant.remove(err => {
