@@ -6,6 +6,7 @@ const resData = require('../models/restaurant')
 //進入新增頁面
 router.get('/new', (req, res) => {
   res.render('new')
+  console.log(req.user)
 })
 
 router.post('/new', (req, res) => {
@@ -17,6 +18,7 @@ router.post('/new', (req, res) => {
     phone: req.body.phone,
     image: req.body.image,
     description: req.body.description,
+    userId: req.user._id,
   })
 
   restaurant.save(err => {

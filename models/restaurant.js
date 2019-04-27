@@ -25,7 +25,7 @@ const restaurantSchema = new Schema({
     type: String,
     required: true,
   },
-  map: {
+  google_map: {
     type: String,
   },
   rating: {

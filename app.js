@@ -14,6 +14,8 @@ const flash = require('connect-flash')
 //express session
 app.use(session({
   secret: 'Hello World',
+  resave: 'false',
+  saveUninitialized: 'false',
 })) //設定Secret金鑰
 
 //use Passport
@@ -46,7 +48,7 @@ app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 
-mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useCreateIndex: true })
 
 const db = mongoose.connection
 

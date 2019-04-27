@@ -19,7 +19,9 @@
           alt="我的餐廳清單">
         我的餐廳清單
       </a>
+      {{#if isAuthenticated}}
       <p class="m-auto">Hi {{{user.name}}}</p>
+      {{/if}}
       <div class="control-list">
         {{#if isAuthenticated}}
 

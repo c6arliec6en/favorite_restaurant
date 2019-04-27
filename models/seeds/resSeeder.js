@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const resSchema = require('../restaurant')
 const favRes = require('./restaurant.json')
 
-mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useCreateIndex: true })
 
 const db = mongoose.connection
 
@@ -36,9 +36,10 @@ db.once('open', () => {
       image: resData[i].image,
       location: resData[i].location,
       phone: resData[i].phone,
-      map: resData[i].google_map,
+      google_map: resData[i].google_map,
       rating: resData[i].rating,
       description: resData[i].description,
+      userId: resData[i].userId
     })
   }
 })
