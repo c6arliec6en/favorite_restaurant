@@ -11,6 +11,10 @@ const passport = require('passport')
 const flash = require('connect-flash')
 
 
+if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
+  require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
+}
+
 //express session
 app.use(session({
   secret: 'Hello World',
