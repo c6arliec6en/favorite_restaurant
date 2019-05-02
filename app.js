@@ -68,12 +68,7 @@ db.once('open', () => {
 })
 
 // Routing
-app.use('/', require('./routes/home'))
-app.use('/restaurants', require('./routes/restaurant'))
-app.use('/sort', require('./routes/sort'))
-app.use('/users', require('./routes/user'))
-app.use('/auth', require('./routes/auths'))
-
+app.use(require('./routes/routes'))
 
 
 app.listen(port, () => {
