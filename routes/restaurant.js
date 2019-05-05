@@ -23,7 +23,14 @@ router.get('/new', authenticated, (req, res) => {
 
 router.post('/new', authenticated, upload.single('image'), (req, res) => {
   const { name, category, location, phone, description } = req.body
-  const image = req.file.filename
+
+  let image = ''
+  if (!req.file) {
+    image = 'default.jpg'
+  } else {
+    image = req.file.filename
+  }
+
   const restaurant = resData({
     name,
     category,
@@ -33,7 +40,6 @@ router.post('/new', authenticated, upload.single('image'), (req, res) => {
     description,
     userId: req.user._id,
   })
-
 
   restaurant.save(err => {
     if (err) return console.log('create new data err')
