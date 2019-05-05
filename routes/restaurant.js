@@ -2,32 +2,44 @@ const express = require('express')
 const router = express.Router()
 const resData = require('../models/restaurant')
 const authenticated = require('../config/auth')
+const multer = require('multer')
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, done) => {
+    done(null, './public/img/')
+  },
+  filename: (req, file, done) => {
+    done(null, `${Date.now()}-${file.originalname}`)
+  }
+})
+const upload = multer({ storage: storage })
 
 
 //進入新增頁面
 router.get('/new', authenticated, (req, res) => {
   res.render('new')
-  console.log(req.user)
 })
 
-router.post('/new', authenticated, (req, res) => {
-
+router.post('/new', authenticated, upload.single('image'), (req, res) => {
+  const { name, category, location, phone, description } = req.body
+  const image = req.file.filename
   const restaurant = resData({
-    name: req.body.name,
-    category: req.body.category,
-    location: req.body.location,
-    phone: req.body.phone,
-    image: req.body.image,
-    description: req.body.description,
+    name,
+    category,
+    location,
+    phone,
+    image,
+    description,
     userId: req.user._id,
   })
+
 
   restaurant.save(err => {
     if (err) return console.log('create new data err')
     return res.redirect('/')
   })
 })
-
 
 router.get('/search', authenticated, (req, res) => {
   const keyword = req.query.keyword
@@ -59,15 +71,22 @@ router.get('/:id/edit', authenticated, (req, res) => {
 })
 
 //送出編輯內容
-router.put('/edit/:id', authenticated, (req, res) => {
+router.put('/edit/:id', authenticated, upload.single('image'), (req, res) => {
   resData.findById(req.params.id, (err, restaurant) => {
     if (err) return console.log('edit err')
+
+    let image = ''
+    if (!req.file) {
+      image = restaurant.image
+    } else {
+      image = req.file.filename
+    }
 
     restaurant.name = req.body.name
     restaurant.category = req.body.category
     restaurant.location = req.body.location
     restaurant.phone = req.body.phone
-    restaurant.image = req.body.image
+    restaurant.image = image
     restaurant.description = req.body.description
 
     restaurant.save()

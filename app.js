@@ -9,6 +9,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
 const flash = require('connect-flash')
+const multer = require('multer')
 
 
 if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
@@ -43,6 +44,10 @@ app.use((req, res, next) => {
 
 // set static
 app.use('/', express.static('public'))
+
+
+
+
 
 //Use method-override
 app.use(methodOverride('_method'))

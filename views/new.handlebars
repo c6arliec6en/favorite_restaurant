@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-      <form action="/restaurants/new" method="POST">
+      <form action="/restaurants/new" enctype="multipart/form-data" method="POST">
         <p class="mb-1">
           <span class="text-secondary">
             <i class="fas fa-utensils pr-2"></i>
@@ -36,13 +36,14 @@
           <input type="text" name="phone" value="" class="edit-input" required>
         </p>
 
-        <p class="mb-2">
+        <p class="mt-2 mb-2">
           <span class="text-secondary">
             <i class="fas fa-camera pr-1"></i>
             圖片：
+            <input type="file" name="image">
           </span>
-          <input type="text" name="image" value="" class="edit-input">
         </p>
+
         <p class="mb-1">
           <span class="text-secondary">
             <i class="fas fa-file-signature"></i>
